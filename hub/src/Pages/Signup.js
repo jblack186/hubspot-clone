@@ -1,17 +1,44 @@
-import React from "react";
+import React, {useState} from "react";
 import Lady from "../img/folding-arms.png";
 import { GoogleLogin } from "react-google-login";
+import { GoogleLogout } from 'react-google-login';
 import "./Signup.scss";
 import RightArrow from "../img/right-arrow.svg";
 import Blob from "../img/blob.svg";
+import { useHistory } from 'react-router-dom';
+
 
 const Signup = () => {
+  const history = useHistory();
+  const [userInfo, setUserInfo] = useState();
+
+
+
   const responseGoogle = (response) => {
     console.log(response);
+    setUserInfo([response.ft.Ue, response.ft.eU, response.ft.Qt
+    ])
+    history.push('/dashboard')
+    
+
+
+  };
+console.log(userInfo)
+  const logout = () => {
+    console.log('hi');
   };
 
   return (
     <div className="signup-container">
+		 <GoogleLogout
+  
+          clientId="546358849656-baoghk362u02tas2sq9pkj6d50sog0ga.apps.googleusercontent.com"
+      buttonText="Logout"
+      onLogoutSuccess={logout}
+      onFailure={'Could not logout'}
+    
+    >
+    </GoogleLogout>
       <div className="signup__form">
         <h3>Create your free account</h3>
         <GoogleLogin
