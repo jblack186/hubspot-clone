@@ -6,4 +6,4 @@ company contact - messages in app will be sent to users gmail
 accounts - users will be able to create tickets for clients and of course
 label companies as clients.
 
-Google Authen
+Google Authentication
