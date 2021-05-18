@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Lady from "../img/folding-arms.png";
 import { GoogleLogin } from "react-google-login";
 import { GoogleLogout } from 'react-google-login';
@@ -11,7 +11,13 @@ import { useHistory } from 'react-router-dom';
 const Signup = () => {
   const history = useHistory();
   const [userInfo, setUserInfo] = useState();
-
+  const [values, setValues] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone_number: '',
+    company_name: ''
+  });
 
 
   const responseGoogle = (response) => {
@@ -26,6 +32,46 @@ const Signup = () => {
 console.log(userInfo)
   const logout = () => {
     console.log('hi');
+  };
+
+  const handleFirstNameInputChange = (event) => {
+    event.persist();
+    setValues((values) => ({
+      ...values,
+      firstName: event.target.value,
+    }));
+  };
+
+  const handleLastNameInputChange = (event) => {
+    event.persist();
+    setValues((values) => ({
+      ...values,
+      lastName: event.target.value,
+    }));
+  };
+
+  const handleEmailInputChange = (event) => {
+    event.persist();
+    setValues((values) => ({
+      ...values,
+      email: event.target.value,
+    }));
+  };
+
+  const handlePhoneInputChange = (event) => {
+    event.persist();
+    setValues((values) => ({
+      ...values,
+      phone_number: event.target.value,
+    }));
+  };
+
+  const handleCompanyNameInputChange = (event) => {
+    event.persist();
+    setValues((values) => ({
+      ...values,
+      company_name: event.target.value,
+    }));
   };
 
   return (
@@ -52,11 +98,14 @@ console.log(userInfo)
 		<form className='signup__form__form'>
         <div className='signup__form__form__name'>
 		
-          <input placeholder="First name"></input>
-          <input placeholder="Last name"></input>
+          <input type="text" placeholder="First name" value={values.firstName} onChange={handleFirstNameInputChange}></input>
+          <input type="text" placeholder="Last name"value={values.lastName} onChange={handleLastNameInputChange}></input>
         </div>
-        <input placeholder="Email address"></input>
-        <button className='signup__form__button'>
+        <input type="text" placeholder="Email address" value={values.email} onChange={handleEmailInputChange}></input>
+        <input type="text" placeholder="Phone number" value={values.phone_number} onChange={handlePhoneInputChange}></input>
+        <input type="text" placeholder="Company name" value={values.company_name} onChange={handleCompanyNameInputChange}></input>
+
+        <button id="submit" className='signup__form__button'>
           Next
           <img src={RightArrow} alt="right-arrow" />
         </button>
