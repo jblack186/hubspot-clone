@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import axios from 'axios';
 import Lady from "../img/folding-arms.png";
 import { GoogleLogin } from "react-google-login";
 import { GoogleLogout } from 'react-google-login';
@@ -12,14 +13,14 @@ const Signup = () => {
   const history = useHistory();
   const [userInfo, setUserInfo] = useState();
   const [values, setValues] = useState({
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     email: '',
-    phone_number: '',
-    company_name: ''
+    phonenumber: '',
+    companyname: ''
   });
 
-
+  console.log('values',values)
   const responseGoogle = (response) => {
     console.log(response);
     setUserInfo([response.ft.Ue, response.ft.eU, response.ft.Qt
@@ -38,7 +39,7 @@ console.log(userInfo)
     event.persist();
     setValues((values) => ({
       ...values,
-      firstName: event.target.value,
+      firstname: event.target.value,
     }));
   };
 
@@ -46,7 +47,7 @@ console.log(userInfo)
     event.persist();
     setValues((values) => ({
       ...values,
-      lastName: event.target.value,
+      lastname: event.target.value,
     }));
   };
 
@@ -62,7 +63,7 @@ console.log(userInfo)
     event.persist();
     setValues((values) => ({
       ...values,
-      phone_number: event.target.value,
+      phonenumber: event.target.value,
     }));
   };
 
@@ -70,10 +71,25 @@ console.log(userInfo)
     event.persist();
     setValues((values) => ({
       ...values,
-      company_name: event.target.value,
+      companyname: event.target.value,
     }));
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append("values", values);
+    console.log('form',values)
+    const url = "http://localhost:8886/add_user.php";
+    axios.post(url,values)
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+ 
   return (
     <div className="signup-container">
 		 <GoogleLogout
@@ -95,7 +111,7 @@ console.log(userInfo)
           cookiePolicy={"single_host_origin"}
         />
         <p className="or">Or</p>
-		<form className='signup__form__form'>
+		<form onSubmit={handleSubmit} className='signup__form__form'>
         <div className='signup__form__form__name'>
 		
           <input type="text" placeholder="First name" value={values.firstName} onChange={handleFirstNameInputChange}></input>
@@ -105,7 +121,7 @@ console.log(userInfo)
         <input type="text" placeholder="Phone number" value={values.phone_number} onChange={handlePhoneInputChange}></input>
         <input type="text" placeholder="Company name" value={values.company_name} onChange={handleCompanyNameInputChange}></input>
 
-        <button id="submit" className='signup__form__button'>
+        <button type="submit" id="submit" className='signup__form__button'>
           Next
           <img src={RightArrow} alt="right-arrow" />
         </button>
