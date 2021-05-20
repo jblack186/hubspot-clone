@@ -33,6 +33,7 @@
     align-items: center;
 
     .header-container__mid-nav__list-item {
+      position: relative;
       list-style: none;
       color: white;
       cursor: pointer;
@@ -46,9 +47,51 @@
         padding-left: 5px;
       }
 
+      .header-container__mid-nav__list-item-open {
+        position: absolute;
+        top: 54px;
+        left: 0px;
+        height: 200px;
+        width: 130%;
+        background: #253342;
+        color: white;
+        display: flex;
+        justify-content: flex-start;
+
+        ul {
+          width: 100%;
+          padding-top: 20px;
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          padding: 0;
+        }
+        
+        li {
+          padding-left: 20px;
+          list-style: none;
+          width: 100%;
+          cursor: pointer;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          height: 40px;
+          margin: 0 auto;
+          width: 100%;
+
+
+        }
+
+        li:hover {
+          background:#657c95;
+          
+        }
+      }
+
+    
     }
     li:hover {
-      background: #253342
+      background: #253342;
     }
 
    
