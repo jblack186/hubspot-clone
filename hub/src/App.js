@@ -2,6 +2,7 @@ import "./App.scss";
 import { Route } from "react-router-dom";
 import Signup from "./Pages/Signup";
 import Dashboard from "./Pages/Dashboard";
+import Tickets from "./Pages/Tickets";
 
 function App() {
   return (
@@ -20,6 +21,14 @@ function App() {
           return <Dashboard {...props} />;
         }}
       />
+                  <Route
+        exact
+        path="/tickets"
+        render={(props) => {
+          return <Tickets {...props} />;
+        }}
+      />
+
 
     </div>
   );
