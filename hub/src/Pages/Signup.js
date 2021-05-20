@@ -11,7 +11,14 @@ import { useHistory } from 'react-router-dom';
 
 const Signup = () => {
   const history = useHistory();
-  const [userInfo, setUserInfo] = useState();
+  const [userInfo, setUserInfo] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    phonenumber: '',
+    companyname: ''
+
+  });
   const [values, setValues] = useState({
     firstname: '',
     lastname: '',
@@ -20,11 +27,24 @@ const Signup = () => {
     companyname: ''
   });
 
-  console.log('values',values)
+  // console.log('values',userInfo)
   const responseGoogle = (response) => {
     console.log(response);
-    setUserInfo([response.ft.Ue, response.ft.eU, response.ft.Qt
-    ])
+   setUserInfo({ firstname: response.profileObj.givenName, lastname: response.profileObj.familyName, email: response.profileObj.email, phonenumber: "", companyname: ""
+    })
+    let formData = new FormData();
+    formData.append("values", {firstname: response.profileObj.givenName, lastname: response.profileObj.familyName, email: response.profileObj.email, phonenumber: "", companyname: ""});
+
+    const url = "http://localhost:8886/add_user.php";
+    axios.post(url,{firstname: response.profileObj.givenName, lastname: response.profileObj.familyName, email: response.profileObj.email, phonenumber: "", companyname: ""})
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  
+ 
     history.push('/dashboard')
     
 
