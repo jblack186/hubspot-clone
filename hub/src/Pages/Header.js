@@ -3,6 +3,8 @@ import "./Header.scss";
 import Logo from "../img/logo.webp";
 import Avatar from "../img/user-1.svg";
 import DownArrow from "../img/down-arrow.svg";
+import {Link} from 'react-router-dom';
+
 
 const Header = () => {
   const [service, setService] = useState(false);
@@ -21,7 +23,7 @@ const Header = () => {
     <div className="header-container">
       <div className="header-container__left-nav">
         <h1>
-          <img className="header-container__logo" src={Logo} alt="logo" />
+        <Link className='router_link' to='/dashboard'><img className="header-container__logo" src={Logo} alt="logo" /></Link>
         </h1>
         <ul className="header-container__mid-nav">
           <li className="header-container__mid-nav__list-item">
@@ -49,7 +51,7 @@ const Header = () => {
             />
             <div className='header-container__mid-nav__list-item-open' style={service ? {display: 'flex'} : {display: 'none'}}>
               <ul>
-                <li>Tickets</li>
+              <Link className='router_link' to='/tickets'><li>Tickets</li></Link>
               </ul>
             </div>
           </li>
