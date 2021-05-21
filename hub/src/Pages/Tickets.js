@@ -4,6 +4,7 @@ import "../css/Tickets.scss";
 import ArrowDown from '../img/down-arrow-solid.svg';
 import TicketForm from "../components/TicketForm";
 import Cancel from '../img/cancel.svg';
+import TicketHolder from "../components/TichetHolder";
 
 const Tickets = () => {
   const [creatTicketOpen, setCreateTicketOpen] = useState(false);
@@ -35,6 +36,8 @@ const Tickets = () => {
             <ul>
               <li>All tickets</li>
               <li>My open tickets</li>
+              <li>Closed tickets</li>
+
             </ul>
           </div>
         </div>
@@ -48,7 +51,9 @@ const Tickets = () => {
         </div>
         </div>
       </section>
-      <section className="tickets-container__tickets-header-bottom"></section>
+      <section className="tickets-container__tickets-holder">
+        <TicketHolder />
+      </section>
     </div>
   );
 };
