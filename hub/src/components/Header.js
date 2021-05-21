@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Header.scss";
+import "../css/Header.scss";
 import Logo from "../img/logo.webp";
 import Avatar from "../img/user-1.svg";
 import DownArrow from "../img/down-arrow.svg";
