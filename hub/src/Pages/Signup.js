@@ -3,7 +3,7 @@ import axios from 'axios';
 import Lady from "../img/folding-arms.png";
 import { GoogleLogin } from "react-google-login";
 import { GoogleLogout } from 'react-google-login';
-import "./Signup.scss";
+import "../css/Signup.scss";
 import RightArrow from "../img/right-arrow.svg";
 import Blob from "../img/blob.svg";
 import { useHistory } from 'react-router-dom';

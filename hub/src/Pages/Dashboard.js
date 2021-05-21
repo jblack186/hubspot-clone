@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import Header from './Header';
-import './Dashboard.scss';
+import Header from '../components/Header';
+import '../css/Dashboard.scss';
 
 
 const Dashboard = () => {
