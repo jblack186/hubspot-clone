@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import Signup from "./Pages/Signup";
 import Dashboard from "./Pages/Dashboard";
 import Tickets from "./Pages/Tickets";
+import Login from "./Pages/Login";
 
 function App() {
   return (
@@ -14,6 +15,14 @@ function App() {
           return <Signup {...props} />;
         }}
       />
+            <Route
+        exact
+        path="/login"
+        render={(props) => {
+          return <Login {...props} />;
+        }}
+      />
+
             <Route
         exact
         path="/dashboard"
