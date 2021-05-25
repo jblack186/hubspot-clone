@@ -10,8 +10,8 @@ import { useHistory } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 
 
-const Signup = () => {
-  const [alreadyUser, setAlreadyUser] = useState(false);
+const Login = () => {
+  const [notUser, setNotUser] = useState(false)
   const history = useHistory();
   const [userInfo, setUserInfo] = useState({
     firstname: '',
@@ -40,15 +40,20 @@ const Signup = () => {
     let formData = new FormData();
     formData.append("values", {firstname: response.profileObj.givenName, lastname: response.profileObj.familyName, email: response.profileObj.email, phonenumber: "", companyname: ""});
 
-    const url = "http://localhost:8886/signup.php";
+    const url = "http://localhost:8886/login.php";
     axios.post(url,{firstname: response.profileObj.givenName, lastname: response.profileObj.familyName, googleid: response.profileObj.googleId, email: response.profileObj.email, phonenumber: "", companyname: ""})
       .then(res => {
         console.log(res)
-        if(res.status === 201) {
+        if(res.status === 200) {
+          localStorage.setItem('name', res.data.name)
+          localStorage.setItem('id', res.data)
+
           history.push('/dashboard')
         } else if (res.status === 203) {
-          setAlreadyUser(true)
-          
+          setNotUser(true)
+          alert('Not a user. Please sign up')
+          history.push('/signup')
+     
         
         }
       })
@@ -113,7 +118,7 @@ console.log(userInfo)
     let formData = new FormData();
     formData.append("values", values);
     console.log('form',values)
-    const url = "http://localhost:8886/add_user.php";
+    const url = "http://localhost:8886/login.php";
     axios.post(url,values)
       .then(res => {
         console.log(res.data)
@@ -143,7 +148,6 @@ console.log(userInfo)
           onFailure={responseGoogle}
           cookiePolicy={"single_host_origin"}
         />
-        {alreadyUser ? <p>An account with this email has already been set up.<br/> <Link to='/login'>Click here to login</Link></p> : null}
         <p className="or">Or</p>
 		<form onSubmit={handleSubmit} className='signup__form__form'>
         <div className='signup__form__form__name'>
@@ -184,4 +188,4 @@ console.log(userInfo)
   );
 };
 
-export default Signup;
+export default Login;
