@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from "react";
 import "../css/Tickets.scss";
+import axios from "axios";
 
 
 const TicketHolder = (props) => {
+  const [tickets, setTickets] = useState()
 
-
+  useEffect(() => {
+    const id = localStorage.getItem('id');
+    axios.get("http://localhost:8886/getTicketsById.php", {
+      headers: {
+        "userid": id,
+        }
+    })
+      .then(res => {
+        setTickets(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },[])
+  
+console.log(tickets)
   return (
           <div className='ticketHolder-container'>
             <div className='ticketHolder-container__holder'>

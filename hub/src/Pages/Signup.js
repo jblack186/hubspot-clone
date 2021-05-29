@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
 import Lady from "../img/folding-arms.png";
 import { GoogleLogin } from "react-google-login";

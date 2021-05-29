@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import "../css/Header.scss";
 import Logo from "../img/logo.webp";
 import Avatar from "../img/user-1.svg";
