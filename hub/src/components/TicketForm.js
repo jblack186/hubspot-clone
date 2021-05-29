@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import "../css/Tickets.scss";
-import Cancel from '../img/cancel.svg';
 import axios from 'axios';
 
 const TicketForm = (props) => {
@@ -13,7 +12,7 @@ const TicketForm = (props) => {
   });
 
   const handleFullNameInputChange = (event) => {
-    event.persist();
+    event.preventDefault();
     setValues((values) => ({
       ...values,
       fullname: event.target.value,
@@ -29,13 +28,6 @@ const TicketForm = (props) => {
   };
 
 
-  const handlePhoneInputChange = (event) => {
-    event.persist();
-    setValues((values) => ({
-      ...values,
-      phonenumber: event.target.value,
-    }));
-  };
 
   const handleCompanyNameInputChange = (event) => {
     event.persist();
@@ -50,7 +42,9 @@ const TicketForm = (props) => {
     e.preventDefault();
     axios.post("http://localhost:8886/addTicket.php", values)
       .then(res => {
-        console.log(res)
+        console.log('res',res)
+       setValues({userid: localStorage.getItem('id'), fullname: '', ticketdescription: '', phonenumber: '', companyname: ''})
+       props.Closer.props.onClick(e)
       })
       .catch(err => {
         console.log(err)
@@ -58,7 +52,7 @@ const TicketForm = (props) => {
 
   }
 
-
+console.log(values.fullname)
   return (
           <div style={props.creatTicketOpen ? {display: 'flex', justifyContent: 'center'} : {display: 'none'}}>
             <div className='tickets-container__tickets-header-top__button-container__ticket-creator'>
@@ -74,7 +68,7 @@ const TicketForm = (props) => {
                 </div>
                 <div className='tickets-container__tickets-header-top__button-container__ticket-creator__form__label-input'>
                   <label>Ticket description</label>
-                  <input onChange={handleTicketDescriptionInputChange}/>
+                  <input value={values.ticketdescription } onChange={handleTicketDescriptionInputChange}/>
                 </div>
                 <div className='tickets-container__tickets-header-top__button-container__ticket-creator__form__label-input'>
                   <label>Source </label>
@@ -96,11 +90,11 @@ const TicketForm = (props) => {
                     <h5>Associate ticket with</h5>
                     <div className='tickets-container__tickets-header-top__button-container__ticket-creator__form__label-input'>
                   <label>Company</label>
-                  <input onChange={handleCompanyNameInputChange} />
+                  <input value={values.companyname } onChange={handleCompanyNameInputChange} />
                 </div>
                 <div className='tickets-container__tickets-header-top__button-container__ticket-creator__form__label-input'>
                   <label>Contact</label>
-                  <input  onChange={handleFullNameInputChange}/>
+                  <input type="text" value={values.fullname } onChange={handleFullNameInputChange}/>
                 </div>
 
                 </div>

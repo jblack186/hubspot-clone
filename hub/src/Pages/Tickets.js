@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import "../css/Tickets.scss";
 import ArrowDown from '../img/down-arrow-solid.svg';
@@ -16,7 +16,7 @@ const Tickets = () => {
     setCreateTicketOpen(true)
   }
 
-  const closeTicketCreater = (e) => {
+  function closeTicketCreater (e) {
     e.preventDefault();
     setCreateTicketOpen(false)
   }

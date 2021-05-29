@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState} from "react";
 import axios from 'axios';
 import Lady from "../img/folding-arms.png";
 import { GoogleLogin } from "react-google-login";
@@ -7,11 +7,10 @@ import "../css/Signup.scss";
 import RightArrow from "../img/right-arrow.svg";
 import Blob from "../img/blob.svg";
 import { useHistory } from 'react-router-dom';
-import {Link} from 'react-router-dom';
 
 
 const Login = () => {
-  const [notUser, setNotUser] = useState(false)
+  // const [notUser, setNotUser] = useState(false)
   const history = useHistory();
   const [userInfo, setUserInfo] = useState({
     firstname: '',
@@ -50,7 +49,7 @@ const Login = () => {
 
           history.push('/dashboard')
         } else if (res.status === 203) {
-          setNotUser(true)
+          // setNotUser(true)
           alert('Not a user. Please sign up')
           history.push('/signup')
      
