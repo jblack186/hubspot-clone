@@ -4,9 +4,18 @@ import axios from "axios";
 
 const TicketHolder = (props) => {
   const [tickets, setTickets] = useState([]);
+  // const [newTickets, setNewTickets] = useState([]);
+
+
+
+useEffect(() => {
+
+}, []);
 
   useEffect(() => {
     const id = localStorage.getItem("id");
+    localStorage.setItem('newTicket', '');
+
     axios
       .get("http://localhost:8886/getTicketsById.php", {
         headers: {
@@ -15,14 +24,16 @@ const TicketHolder = (props) => {
       })
       .then((res) => {
         let ticketData = res.data;
+        if (ticketData.userTickets.length > 0) {
         setTickets(ticketData.userTickets);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
+      
   }, []);
 
-  console.log(tickets);
   return (
     <div className="ticketHolder-container">
       <div className="ticketHolder-container__holder">
@@ -34,7 +45,29 @@ const TicketHolder = (props) => {
 
         <div className="ticketHolder-container__holder__list">
           {/* CARD */}
+          <div className="ticketHolder-container__holder__list__old-tickets">
 
+          
+           {props.newTickets.map((item, key) => {
+              return <div
+                  
+                  className="ticketHolder-container__holder__list__card"
+                >
+                  <p className="ticketHolder-container__holder__list__card__description">
+                    {item.ticketdescription}
+                  </p>
+                  <p>{item.fullname}</p>
+                  <p> Company Name: {item.companyname}</p>
+                  <p className="ticketHolder-container__holder__list__card__importance">
+                    High
+                  </p>
+                </div>
+              
+            })}
+           
+          
+          </div>
+  <div className="ticketHolder-container__holder__list__old-tickets">
           {tickets.length > 0 ? (
             tickets.map((item, key) => {
               return (
@@ -56,6 +89,7 @@ const TicketHolder = (props) => {
           ) : (
             <p>HI</p>
           )}
+          </div>
         </div>
       </div>
       <div className="ticketHolder-container__holder">
