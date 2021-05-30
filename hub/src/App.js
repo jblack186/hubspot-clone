@@ -39,14 +39,14 @@ function App() {
         }}
       />
 
-{/* <Route
+<Route
         exact
         path="/test"
         render={(props) => {
           return <Test {...props} />;
         }}
       />
- */}
+
 
 
 
