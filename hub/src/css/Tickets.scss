@@ -69,7 +69,7 @@
   top: 0;
   right: 0;
   height: 100vh;
-  overflow: scroll;
+  overflow-y: scroll;
   width: 40vw;
   background: white;
   margin-top: -54px;
@@ -228,11 +228,19 @@
 //Ticket cards
 
 .ticketHolder-container__holder__list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   height: 90%;
-  overflow-y: scroll;
+  overflow-x: scroll;
+  overflow-y: none;
+  overscroll-behavior-y: scroll;
+
+  ul.characters {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
   .ticketHolder-container__holder__list__old-tickets {
     width: 100%;
@@ -251,7 +259,8 @@
   min-height: 130px;
   background: white;
   cursor: pointer;
-
+z-index: 9;
+list-style: none;
   .ticketHolder-container__holder__list__card__description {
     color: #0091ae;
     
