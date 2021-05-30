@@ -4,6 +4,7 @@ import Signup from "./Pages/Signup";
 import Dashboard from "./Pages/Dashboard";
 import Tickets from "./Pages/Tickets";
 import Login from "./Pages/Login";
+import Test from "./Test";
 
 function App() {
   return (
@@ -37,6 +38,16 @@ function App() {
           return <Tickets {...props} />;
         }}
       />
+
+{/* <Route
+        exact
+        path="/test"
+        render={(props) => {
+          return <Test {...props} />;
+        }}
+      />
+ */}
+
 
 
     </div>

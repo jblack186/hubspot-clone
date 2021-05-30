@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "../css/Tickets.scss";
 import axios from "axios";
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 
 const TicketHolder = (props) => {
   const [tickets, setTickets] = useState([]);
   // const [newTickets, setNewTickets] = useState([]);
+  const [characters, updateCharacters] = useState([]);
 
 
 
+console.log(characters)
 useEffect(() => {
-
-}, []);
+updateCharacters(tickets.reverse())
+}, [tickets]);
 
   useEffect(() => {
     const id = localStorage.getItem("id");
@@ -34,6 +38,16 @@ useEffect(() => {
       
   }, []);
 
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+
+    const items = Array.from(characters);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    updateCharacters(items);
+  }
+
   return (
     <div className="ticketHolder-container">
       <div className="ticketHolder-container__holder">
@@ -42,12 +56,12 @@ useEffect(() => {
           <p>1</p>
         </div>
         <div className="line"></div>
-
         <div className="ticketHolder-container__holder__list">
           {/* CARD */}
+      
           <div className="ticketHolder-container__holder__list__old-tickets">
 
-          
+
            {props.newTickets.map((item, key) => {
               return <div
                   
@@ -66,16 +80,17 @@ useEffect(() => {
             })}
            
           
-          </div>
-  <div className="ticketHolder-container__holder__list__old-tickets">
-          {tickets.length > 0 ? (
-            tickets.map((item, key) => {
-              return (
-                <div
-                  key={key}
-                  className="ticketHolder-container__holder__list__card"
-                >
-                  <p className="ticketHolder-container__holder__list__card__description">
+    </div>
+    <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="characters">
+            {(provided) => (
+              <ul className="characters" {...provided.droppableProps} ref={provided.innerRef}>
+                {characters.map((item, index) => {
+                  return (
+                    <Draggable  key={item.id} draggableId={item.id} index={index}>
+                      {(provided) => (
+                        <li className="ticketHolder-container__holder__list__card" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                     <p className="ticketHolder-container__holder__list__card__description">
                     {item.description}
                   </p>
                   <p>{item.contact}</p>
@@ -83,15 +98,20 @@ useEffect(() => {
                   <p className="ticketHolder-container__holder__list__card__importance">
                     High
                   </p>
-                </div>
-              );
-            })
-          ) : (
-            <p>HI</p>
-          )}
-          </div>
+                        </li>
+                      )}
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>              
+              
         </div>
       </div>
+      
       <div className="ticketHolder-container__holder">
         <div className="ticketHolder-container__holder__banner">
           <p>AWAITING INFO</p>
