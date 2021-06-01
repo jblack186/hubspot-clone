@@ -4,7 +4,7 @@ import Signup from "./Pages/Signup";
 import Dashboard from "./Pages/Dashboard";
 import Tickets from "./Pages/Tickets";
 import Login from "./Pages/Login";
-import Test from "./Test";
+import Test from "./components/Test";
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
         }}
       />
 
-<Route
+{/* <Route
         exact
         path="/test"
         render={(props) => {
@@ -47,7 +47,7 @@ function App() {
         }}
       />
 
-
+ */}
 
 
     </div>

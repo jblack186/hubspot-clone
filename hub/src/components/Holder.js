@@ -1,29 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import uuid from "uuid/v4";
+import axios from "axios";
+import "../css/Tickets.scss";
 
-const itemsFromBackend = [
-  { id: uuid(), content: "First task" },
-  { id: uuid(), content: "Second task" },
-  { id: uuid(), content: "Third task" },
-  { id: uuid(), content: "Fourth task" },
-  { id: uuid(), content: "Fifth task" }
-];
+function Test() {
+  const [tickets, setTickets] = useState([]);
+  // const [newTickets, setNewTickets] = useState([]);
+  const [characters, updateCharacters] = useState([]);
+  const [awaiting, updateAwaiting] = useState([]);
+
+
+
+console.log(characters)
+useEffect(() => {
+updateCharacters(tickets.reverse())
+}, [tickets]);
+
+
+
+  useEffect(() => {
+    const id = localStorage.getItem("id");
+    localStorage.setItem('newTicket', '');
+
+    axios
+      .get("http://localhost:8886/getTicketsById.php", {
+        headers: {
+          userid: id,
+        },
+      })
+      .then((res) => {
+        let ticketData = res.data;
+        if (ticketData.userTickets.length > 0) {
+        setTickets(ticketData.userTickets);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      
+  }, []);
+
+  const itemsFromBackend = [
+    { id: '1', content: "First task" },
+    { id: '2', content: "Second task" },
+    { id: '3', content: "Third task" },
+    { id: '4', content: "Fourth task" },
+    { id: '5', content: "Fifth task" }
+  ];
+
+
+// const itemsFromBackend = characters
 
 const columnsFromBackend = {
-  [uuid()]: {
+  ['1']: {
     name: "Requested",
     items: itemsFromBackend
   },
-  [uuid()]: {
+  ['2']: {
     name: "To do",
     items: []
   },
-  [uuid()]: {
+  ['3']: {
     name: "In Progress",
     items: []
   },
-  [uuid()]: {
+  ['4']: {
     name: "Done",
     items: []
   }
@@ -66,8 +107,11 @@ const onDragEnd = (result, columns, setColumns) => {
   }
 };
 
-function App() {
-  const [columns, setColumns] = useState(columnsFromBackend);
+
+
+const [columns, setColumns] = useState(columnsFromBackend);
+
+
   return (
     <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
       <DragDropContext
@@ -103,8 +147,8 @@ function App() {
                         {column.items.map((item, index) => {
                           return (
                             <Draggable
-                              key={item.id}
-                              draggableId={item.id}
+                              key={toString(item.id)}
+                              draggableId={toString(item.id)}
                               index={index}
                             >
                               {(provided, snapshot) => {
@@ -125,7 +169,7 @@ function App() {
                                       ...provided.draggableProps.style
                                     }}
                                   >
-                                    {item.content}
+                                    {item.company}
                                   </div>
                                 );
                               }}
@@ -146,4 +190,4 @@ function App() {
   );
 }
 
-export default App;
+export default Test;
