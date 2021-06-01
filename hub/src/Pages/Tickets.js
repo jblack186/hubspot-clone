@@ -6,12 +6,22 @@ import TicketForm from "../components/TicketForm";
 import Cancel from '../img/cancel.svg';
 import TicketHolder from "../components/TichetHolder";
 import axios from 'axios';
-
+import Test from "../components/Test";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts } from '../redux/actions/productsActions';
 
 const Tickets = () => {
   const [creatTicketOpen, setCreateTicketOpen] = useState(false);
+  
 
   const [newTickets, setNewTickets] = useState([]);
+
+  const [tickets, setTickets] = useState([]);
+
+
+  const realTickets = useSelector((state) => state);
+  const dispatch = useDispatch();
+
 
   const [values, setValues] = useState({
     userid: localStorage.getItem('id'),
@@ -21,12 +31,54 @@ const Tickets = () => {
     companyname: ''
   });
 
+  useEffect(async () => {
 
+
+    const ids = localStorage.getItem("id");
+
+    await axios
+      .get("http://localhost:8886/getTicketsById.php", {
+        headers: {
+          userid: ids,
+        },
+      })
+      .then((res) => {
+        
+        let ticketData = res.data;
+        // columnsFromBackend['1'].items.push(ticketData.userTickets)
+        // console.log('tickets', ticketData.userTickets)
+        // if (ticketData.userTickets.length > 0) {
+        // setTickets(ticketData.userTickets);
+        // }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      
+  }, []);
+
+
+  const fetchTickets = async () => {
+    const ids = localStorage.getItem("id");
+
+    const response = await axios.get("http://localhost:8886/getTicketsById.php",{
+      headers: {
+        userid: ids,
+      },
+    })
+    .catch(err => {
+      console.log('ERR',err);
+    });
+    dispatch(setProducts(response.data));
+  }
 
 
   useEffect(() => {
+    fetchTickets();
     localStorage.setItem('newTicket', '');
   }, [])
+  console.log('ITS real', realTickets)
+
 
   const sendNewTicket = (e) => {
     e.preventDefault();
@@ -137,6 +189,8 @@ const Tickets = () => {
       </section>
       <section className="tickets-container__tickets-holder">
         <TicketHolder newTickets={newTickets} />
+        <Test realTickets={tickets} />
+
       </section>
     </div>
   );
