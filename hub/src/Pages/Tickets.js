@@ -136,16 +136,16 @@ console.log('realTickets',realTickets)
   };
 
 
-  const handleSubmit = e => {
+   const handleSubmit = async (e) => {
     // getMore();
-
-
-    axios.post("http://localhost:8886/addTicket.php", values)
+    await e.preventDefault()
+    await axios.post("http://localhost:8886/addTicket.php", values)
       .then(res => {
        setValues({userid: localStorage.getItem('id'), fullname: '', ticketdescription: '', phonenumber: '', companyname: '', ticketStatus: 'new'})
        closeTicketCreater(e)
        console.log('values',res)
       setNewTickets([...newTickets, res.data])
+      window.location.reload()
       })
       .catch(err => {
         console.log(err)
@@ -153,7 +153,6 @@ console.log('realTickets',realTickets)
 
   } 
 
-console.log('valuse', values)
 
   return (
     <div className="tickets-container">
