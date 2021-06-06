@@ -4,9 +4,8 @@ import "../css/Tickets.scss";
 import ArrowDown from '../img/down-arrow-solid.svg';
 import TicketForm from "../components/TicketForm";
 import Cancel from '../img/cancel.svg';
-import TicketHolder from "../components/TichetHolder";
+import TicketHolder from "../components/TicketHolder";
 import axios from 'axios';
-import Test from "../components/Test";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from '../redux/actions/productsActions';
 
@@ -22,14 +21,17 @@ const Tickets = () => {
   const realTickets = useSelector((state) => state);
   const dispatch = useDispatch();
 
-
+console.log('realTickets',realTickets)
   const [values, setValues] = useState({
     userid: localStorage.getItem('id'),
     fullname: '',
     ticketdescription: '',
     phonenumber: '',
-    companyname: ''
+    companyname: '',
+    ticketStatus: 'new'
   });
+
+
 
   useEffect(async () => {
 
@@ -47,9 +49,9 @@ const Tickets = () => {
         let ticketData = res.data;
         // columnsFromBackend['1'].items.push(ticketData.userTickets)
         // console.log('tickets', ticketData.userTickets)
-        // if (ticketData.userTickets.length > 0) {
-        // setTickets(ticketData.userTickets);
-        // }
+        if (ticketData.userTickets.length > 0) {
+        setTickets(ticketData.userTickets);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -57,6 +59,9 @@ const Tickets = () => {
       
   }, []);
 
+  const getMore = (e) => {
+    console.log('I am working')
+  }
 
   const fetchTickets = async () => {
     const ids = localStorage.getItem("id");
@@ -77,7 +82,6 @@ const Tickets = () => {
     fetchTickets();
     localStorage.setItem('newTicket', '');
   }, [])
-  console.log('ITS real', realTickets)
 
 
   const sendNewTicket = (e) => {
@@ -133,15 +137,15 @@ const Tickets = () => {
 
 
   const handleSubmit = e => {
+    // getMore();
 
-    e.preventDefault();
 
     axios.post("http://localhost:8886/addTicket.php", values)
       .then(res => {
-       setValues({userid: localStorage.getItem('id'), fullname: '', ticketdescription: '', phonenumber: '', companyname: ''})
+       setValues({userid: localStorage.getItem('id'), fullname: '', ticketdescription: '', phonenumber: '', companyname: '', ticketStatus: 'new'})
        closeTicketCreater(e)
-       console.log('values',values)
-      setNewTickets([...newTickets, values])
+       console.log('values',res)
+      setNewTickets([...newTickets, res.data])
       })
       .catch(err => {
         console.log(err)
@@ -149,7 +153,7 @@ const Tickets = () => {
 
   } 
 
-
+console.log('valuse', values)
 
   return (
     <div className="tickets-container">
@@ -166,7 +170,7 @@ const Tickets = () => {
               <li>All tickets</li>
               <li>My open tickets</li>
               <li>Closed tickets</li>
-
+ 
             </ul>
           </div>
         </div>
@@ -175,6 +179,7 @@ const Tickets = () => {
           <div className="tickets-container__tickets-header-top__button-container">
         <button onClick={openTicketCreater} className='tickets-container__tickets-header-top__button'>Create ticket</button>
         <TicketForm 
+        ticketStatus={values.ticketStatus}
         description={ <input value={values.ticketdescription } onChange={handleTicketDescriptionInputChange}/>}
         company={<input value={values.companyname } onChange={handleCompanyNameInputChange} />}
         contact={<input type="text" value={values.fullname } onChange={handleFullNameInputChange}/>}
@@ -188,8 +193,7 @@ const Tickets = () => {
         </div>
       </section>
       <section className="tickets-container__tickets-holder">
-        <TicketHolder newTickets={newTickets} />
-        <Test realTickets={tickets} />
+        <TicketHolder getMore={getMore} newTickets={newTickets} realTickets={tickets} />
 
       </section>
     </div>

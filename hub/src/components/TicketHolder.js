@@ -3,44 +3,43 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import axios from "axios";
 import { setProducts } from '../redux/actions/productsActions';
 import { useDispatch, useSelector } from "react-redux";
+import "../css/Tickets.scss";
 
 
 
 
 
 
-function Test(props) {
+const TicketHolder = (props) => {
 
-  const [tickets, setTickets] = useState([]);
   const products = useSelector((state) => state.allProducts.products);
-  console.log('aaa',props.realTickets)
-  const dispatch = useDispatch();
+  const [columns, setColumns] = useState([]);
 
-  
-  
-  const columnsFromBackend = {
+  const [columnsFromBackend, setColumnsFromBackend] = useState({
     ['1']: {
-      name: "Pending",
+      name: "New",
       items: []
     },
     ['2']: {
-      name: "Working",
+      name: "Awaiting Info",
       items: []
     },
     ['3']: {
-      name: "Awaiting Info",
+      name: "Working",
       items: []
     },
     ['4']: {
       name: "Completed",
       items: []
     }
-  };
-
-  const [columns, setColumns] = useState(columnsFromBackend);
-
-
+  })
   
+  const dispatch = useDispatch();
+
+
+
+
+
 
 
 
@@ -56,54 +55,123 @@ function Test(props) {
     .catch(err => {
       console.log('ERR',err);
     });
-   console.log(response.data)
-    columnsFromBackend['1'].items = response.data.userTickets
+
+if(response.data.userTickets !== undefined) {
+
+    let newTickets = await response.data.userTickets.reverse().filter(item => {
+      let makeArr = item.ticketStatus.split(',')
+      if (makeArr[0] === 'new') {
+      return item
+    } 
+    })
+
+    let awaitingTickets = await response.data.userTickets.reverse().filter(item => {
+      let makeArr = item.ticketStatus.split(',')
+      if (makeArr[0] === 'awaiting') {
+      return item
+    }  
+    })
+
+    let workingTickets = await response.data.userTickets.reverse().filter(item => {
+      let makeArr = item.ticketStatus.split(',')
+      if (makeArr[0] === 'working') {
+      return item
+    }  
+    })
+
+
+    let completedTickets = await response.data.userTickets.reverse().filter(item => {
+      let makeArr = item.ticketStatus.split(',')
+      if (makeArr[0] === 'completed') {
+      return item
+    }  
+    })
+  
+
+
+
+    setColumnsFromBackend({
+      ['1']: {
+        name: "New",
+        items: newTickets.length > 0 ? newTickets : []
+      },
+      ['2']: {
+        name: "Awaiting Info",
+        items: awaitingTickets
+
+      },
+      ['3']: {
+        name: "Working",
+        items: workingTickets
+      },
+      ['4']: {
+        name: "Completed",
+        items: completedTickets
+      }
+    });
+
+    setColumns(columnsFromBackend)
+
+  } else {
+    
+    setColumnsFromBackend({
+      ['1']: {
+        name: "New",
+        items: []
+      },
+      ['2']: {
+        name: "Awaiting Info",
+        items: []
+
+      },
+      ['3']: {
+        name: "Working",
+        items: []
+      },
+      ['4']: {
+        name: "Completed",
+        items: []
+      }
+    });
+    setColumns(columnsFromBackend)
+
+
   }
-
-
+}
+  
   useEffect(() => {
     fetchTickets();
-  }, []);
-
-
+  }, [products]);
 
   
-
-console.log('props', columnsFromBackend['1'].items)
-
-
-
+  useEffect(() => {
+    fetchTickets();
+  }, [props.getMore]);
 
 
-  
-
-  // useEffect(() => {
-
-
-  //   const ids = localStorage.getItem("id");
-
-  //   axios
-  //     .get("http://localhost:8886/getTicketsById.php", {
-  //       headers: {
-  //         userid: ids,
-  //       },
-  //     })
-  //     .then((res) => {
-        
-  //       let ticketData = res.data;
-  //       // columnsFromBackend['1'].items.push(ticketData.userTickets)
-  //       console.log('tickets', ticketData.userTickets)
-  //       // if (ticketData.userTickets.length > 0) {
-  //       setTickets(ticketData.userTickets);
-  //       // }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-      
-  // }, []);
 
   const onDragEnd = (result, columns, setColumns) => {
+    let swapObj = {
+      1: 'new',
+      2: 'awaiting',
+      3: 'working',
+      4: 'completed'
+    }
+    console.log('lets go', result,'yep', columns)
+    let swap = {
+      'id': result.draggableId,
+      'status': swapObj[result.destination.droppableId]
+    }
+
+console.log('swap',swap)
+
+    axios.put("http://localhost:8886/changeTicketStatus.php", swap)
+      .then(res => {
+        console.log('res',res)
+      })
+      .catch(err => {
+        console.log('err',err)
+      })
     if (!result.destination) return;
     const { source, destination } = result;
   
@@ -142,22 +210,18 @@ console.log('props', columnsFromBackend['1'].items)
   
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
+    <div className="ticketHldr-container"  >
       <DragDropContext
         onDragEnd={result => onDragEnd(result, columns, setColumns)}
       >
         {Object.entries(columns).map(([columnId, column], index) => {
           return (
             <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center"
-              }}
+             
               key={columnId}
             >
-              <h2>{column.name}</h2>
-              <div style={{ margin: 8 }}>
+              <h2 className="ticketHldr-container__header">{column.name}</h2>
+              <div className="ticketHldr-container__column" >
                 <Droppable droppableId={columnId} key={columnId}>
                   {(provided, snapshot) => {
                     return (
@@ -165,18 +229,30 @@ console.log('props', columnsFromBackend['1'].items)
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                         style={{
-                          background: snapshot.isDraggingOver
-                            ? "lightblue"
-                            : "lightgrey",
+                          position: 'relative',
+                          zIndex: 1,
+                          border: snapshot.isDraggingOver
+                            ? '1px dashed black'
+                            : "#f5f8fa",
                           padding: 4,
                           width: 250,
-                          minHeight: 500            
+                          minHeight: 500,
+                          zIndex: 1,
+           
                         }}
                       >
-                        {props.realTickets !== undefined ?
+                                              
+                        {
                         column.items.map((item, index) => {
                           return (
                             <Draggable
+                            style={{
+                              position: 'relative',
+                              
+                              zIndex: 9,
+               
+                            }}
+    
                               key={item.id}
                               draggableId={item.id}
                               index={index}
@@ -184,22 +260,14 @@ console.log('props', columnsFromBackend['1'].items)
                               {(provided, snapshot) => {
                                 return (
                                   <div
+                                  className="ticketHldr-container__card"
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
-                                    style={{
-                                      userSelect: "none",
-                                      padding: 16,
-                                      margin: "0 0 8px 0",
-                                      minHeight: "50px",
-                                      backgroundColor: snapshot.isDragging
-                                        ? "#263B4A"
-                                        : "#456C86",
-                                      color: "white",
-                                      ...provided.draggableProps.style
-                                    }}
+                                    
                                   >
                                     {item.company}
+                                    {item.name}
                                   </div>
                                 );
                               }}
@@ -207,7 +275,7 @@ console.log('props', columnsFromBackend['1'].items)
                           );
                         }
                         
-                        ) : <p>Wait yo</p>}
+                        ) }
                         {provided.placeholder}
                       </div>
                     );
@@ -224,4 +292,4 @@ console.log('props', columnsFromBackend['1'].items)
 
 
 
-export default Test;
+export default TicketHolder;
