@@ -197,86 +197,147 @@
 
 //TicketHolder
 
-.ticketHolder-container {
-  display: flex;
-  justify-content: center;
+// .ticketHolder-container {
+//   display: flex;
+//   justify-content: center;
   
-.ticketHolder-container__holder {
-  background: #f5f8fa;
-  width: 23%;
-  height: 80vh;
-  border: 1px solid #cbd6e2;
-  margin-top: 15px;
+// .ticketHolder-container__holder {
+//   background: #f5f8fa;
+//   width: 23%;
+//   height: 80vh;
+//   border: 1px solid #cbd6e2;
+//   margin-top: 15px;
 
 
-  .line {
-    width: 100%;
-    border-bottom: 1px solid #cbd6e2;
-  }
+//   .line {
+//     width: 100%;
+//     border-bottom: 1px solid #cbd6e2;
+//   }
 
-  .ticketHolder-container__holder__banner {
-    display: flex;
-    width: 90%;
-    justify-content: space-between;
-    margin: 0 auto;
-  }
-}
+//   .ticketHolder-container__holder__banner {
+//     display: flex;
+//     width: 90%;
+//     justify-content: space-between;
+//     margin: 0 auto;
+//   }
+// }
 
-}
+// }
 
 
 //Ticket cards
 
-.ticketHolder-container__holder__list {
-  height: 90%;
-  overflow-x: scroll;
-  overflow-y: none;
-  overscroll-behavior-y: scroll;
+// .ticketHolder-container__holder__list {
+//   height: 90%;
+//   overflow-x: scroll;
+//   overflow-y: none;
+//   overscroll-behavior-y: scroll;
 
-  ul.characters {
+//   ul.characters {
+//     width: 100%;
+//     padding: 0;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//   }
+
+//   .ticketHolder-container__holder__list__old-tickets {
+//     width: 100%;
+//     display: flex;
+//     flex-direction: column-reverse;
+//     justify-content: center;
+//     align-items: center;
+//   }
+
+// .ticketHolder-container__holder__list__card {
+//   position: relative;
+//   margin-top: 7px;
+//   border: 1px solid rgb(223, 227, 235);
+//   border-radius: 3px;
+//   width: 95%;
+//   min-height: 130px;
+//   background: white;
+//   cursor: pointer;
+// z-index: 9;
+// list-style: none;
+//   .ticketHolder-container__holder__list__card__description {
+//     color: #0091ae;
+    
+//   }
+
+//   .ticketHolder-container__holder__list__card__importance {
+//     position: absolute;
+//     bottom: -8px;
+//     right: 5px;
+//     font-size: .9rem;
+//     color: #0091ae;
+
+//   }
+//   p {
+//     margin-left: 30px;
+//   }
+// }
+
+// }
+
+
+.ticketHldr-container {
+  background: #f5f8fa;
+  width: min-content;
+  margin: 0 auto;
+  display: flex;
+  justify-content:center;
+  position: relative;
+  z-index: 1;
+  border: 1px solid #cbd6e2;
+  margin-top: 30px;
+  height: 100%;
+
+  .ticketHldr-container__header {
+    border-bottom: 1px solid #cbd6e2;
+    border-left: 1px solid #cbd6e2;
+    border-right: 1px solid #cbd6e2;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 300;
     width: 100%;
-    padding: 0;
+    min-height: 54px;
+    padding-bottom: 10px;
+    position: sticky;
+    top: 0;
+    background: #f5f8fa;
+    display: flex;
+    align-items: center;
+    
+    z-index: 9;
+  }
+  .ticketHldr-container__column {
+    border: 1px solid #cbd6e2;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
+    overflow-y: scroll;
+    max-height: 65vh;
 
-  .ticketHolder-container__holder__list__old-tickets {
+  }
+  .ticketHldr-container__card {
     width: 100%;
+    min-height: 100px;
+    margin-bottom: 10px;
+    background: rgb(255, 255, 255);
+    border: 1px solid #cbd6e2;
+    border-radius: 3px;
     display: flex;
-    flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
-  }
-
-.ticketHolder-container__holder__list__card {
-  position: relative;
-  margin-top: 7px;
-  border: 1px solid rgb(223, 227, 235);
-  border-radius: 3px;
-  width: 95%;
-  min-height: 130px;
-  background: white;
-  cursor: pointer;
-z-index: 9;
-list-style: none;
-  .ticketHolder-container__holder__list__card__description {
-    color: #0091ae;
-    
-  }
-
-  .ticketHolder-container__holder__list__card__importance {
-    position: absolute;
-    bottom: -8px;
-    right: 5px;
-    font-size: .9rem;
-    color: #0091ae;
+    cursor: pointer;
+    z-index: 3;
+    position: relative;
 
   }
-  p {
-    margin-left: 30px;
-  }
-}
 
 }
+

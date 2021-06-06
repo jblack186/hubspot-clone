@@ -3,7 +3,7 @@ import "../css/Tickets.scss";
 import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-const TicketHolder = (props) => {
+const TicketHolderOld = (props) => {
   const [tickets, setTickets] = useState([]);
   // const [newTickets, setNewTickets] = useState([]);
   const [characters, updateCharacters] = useState([]);
@@ -311,4 +311,4 @@ updateCharacters(tickets.reverse())
   );
 };
 
-export default TicketHolder;
+export default TicketHolderOld;
