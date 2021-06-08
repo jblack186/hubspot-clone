@@ -284,25 +284,34 @@
 
 .ticketHldr-container {
   background: #f5f8fa;
-  width: min-content;
+  width: 93%;
   margin: 0 auto;
   display: flex;
   justify-content:center;
   position: relative;
   z-index: 1;
-  border: 1px solid #cbd6e2;
   margin-top: 30px;
-  height: 100%;
+
+
+  .ticketHldr-container__block {
+    width: 25%;
+    border: 1px solid #cbd6e2;
+
+  }
+
+  .ticketHldr-container__header-container {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #cbd6e2;
+    padding: 9px;
+  }
 
   .ticketHldr-container__header {
-    border-bottom: 1px solid #cbd6e2;
-    border-left: 1px solid #cbd6e2;
-    border-right: 1px solid #cbd6e2;
     margin: 0;
     font-size: 1rem;
     font-weight: 300;
     width: 100%;
-    min-height: 54px;
+    min-height: 45px;
     padding-bottom: 10px;
     position: sticky;
     top: 0;
@@ -313,16 +322,24 @@
     z-index: 9;
   }
   .ticketHldr-container__column {
-    border: 1px solid #cbd6e2;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     overflow-y: scroll;
-    max-height: 65vh;
+
 
   }
+
+  .ticketHldr-container__column__square {
+    width: 90%;
+    padding: 4px;
+    z-index: 1;
+    position: relative;
+    height: 70vh;
+  }
+
   .ticketHldr-container__card {
     width: 100%;
     min-height: 100px;

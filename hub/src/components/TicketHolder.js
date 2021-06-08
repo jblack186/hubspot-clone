@@ -217,26 +217,28 @@ console.log('swap',swap)
         {Object.entries(columns).map(([columnId, column], index) => {
           return (
             <div
-             
+             className="ticketHldr-container__block"
               key={columnId}
             >
+              <div className="ticketHldr-container__header-container">
               <h2 className="ticketHldr-container__header">{column.name}</h2>
+              <p>{column.items.length}</p>
+              </div>
               <div className="ticketHldr-container__column" >
                 <Droppable droppableId={columnId} key={columnId}>
                   {(provided, snapshot) => {
                     return (
                       <div
+                        className="ticketHldr-container__column__square"
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                         style={{
-                          position: 'relative',
-                          zIndex: 1,
+                        
                           border: snapshot.isDraggingOver
-                            ? '1px dashed black'
+                            ? '2px dashed lightgray'
                             : "#f5f8fa",
                           padding: 4,
-                          width: 250,
-                          minHeight: 500,
+                          
                           zIndex: 1,
            
                         }}

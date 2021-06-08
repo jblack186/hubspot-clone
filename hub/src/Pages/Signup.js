@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import Lady from "../img/folding-arms.png";
+import Lady from "../img/women-folding-arms-new.png";
 import { GoogleLogin } from "react-google-login";
 import { GoogleLogout } from 'react-google-login';
 import "../css/Signup.scss";
@@ -8,6 +8,8 @@ import RightArrow from "../img/right-arrow.svg";
 import Blob from "../img/blob.svg";
 import { useHistory } from 'react-router-dom';
 import {Link} from 'react-router-dom';
+import signInHeader from '../img/hubspot-wordmark.svg';
+import Blob2 from '../img/blob (1).svg';
 
 
 const Signup = () => {
@@ -124,8 +126,15 @@ console.log(userInfo)
   }
  
   return (
+    <div>
+      <div className="signin-header">
+        <img src={signInHeader} alt="sign-in header" />
+        <p>Have an account? <Link to="/login">Sign in.</Link></p>
+      </div>
+
+    
     <div className="signup-container">
-		 <GoogleLogout
+		 {/* <GoogleLogout
   
           clientId="546358849656-baoghk362u02tas2sq9pkj6d50sog0ga.apps.googleusercontent.com"
       buttonText="Logout"
@@ -133,7 +142,7 @@ console.log(userInfo)
       onFailure={'Could not logout'}
     
     >
-    </GoogleLogout>
+    </GoogleLogout> */}
       <div className="signup__form">
         <h3>Create your free account</h3>
         <GoogleLogin
@@ -172,14 +181,16 @@ console.log(userInfo)
             src={Lady}
             alt="woman-folding-arms"
           />
-          <img
-            className="incentive__image__holder__blob"
-            src={Blob}
+                    <img
+            className="incentive__image__holder__blob two"
+            src={Blob2}
             alt="blob"
           />
+
         </div>
         <p>ClubSpot CRM is 100% free, forever</p>
       </div>
+    </div>
     </div>
   );
 };
