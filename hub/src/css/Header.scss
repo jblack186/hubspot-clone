@@ -1,4 +1,18 @@
 
+.signin-header {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  padding-top: 20px;
+  margin: 0 auto;
+  z-index: 5;
+  position: relative;
+  img {
+    width: 150px;
+  }
+}
+
+
 //Link to function - from react
 .router_link {
   color: white;
@@ -118,4 +132,7 @@
     }
   }
 }
+
+
+
 

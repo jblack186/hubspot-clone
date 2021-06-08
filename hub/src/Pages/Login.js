@@ -7,6 +7,8 @@ import "../css/Signup.scss";
 import RightArrow from "../img/right-arrow.svg";
 import Blob from "../img/blob.svg";
 import { useHistory } from 'react-router-dom';
+import signInHeader from '../img/hubspot-wordmark.svg';
+import {Link} from 'react-router-dom';
 
 
 const Login = () => {
@@ -128,8 +130,11 @@ console.log(userInfo)
   }
  
   return (
-    <div className="signup-container">
-		 <GoogleLogout
+    <div className="login-container">
+              <img src={signInHeader} alt="sign-in header" />
+        <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+
+		 {/* <GoogleLogout
   
           clientId="546358849656-baoghk362u02tas2sq9pkj6d50sog0ga.apps.googleusercontent.com"
       buttonText="Logout"
@@ -137,52 +142,38 @@ console.log(userInfo)
       onFailure={'Could not logout'}
     
     >
-    </GoogleLogout>
-      <div className="signup__form">
-        <h3>Create your free account</h3>
-        <GoogleLogin
+    </GoogleLogout> */}
+      <div className="login-container__form-container">
+		<form onSubmit={handleSubmit} className='login-container__form-container__form'>
+        <div className='login-container__form-container__form__contents'>
+          <div className='login-container__form-container__form__contents__input'>
+          <label>Email address</label>
+          <input type="text" value={values.firstName} onChange={handleFirstNameInputChange}></input>
+          </div>
+          <div className='login-container__form-container__form__contents__input'>
+          <label>Password</label>
+
+          <input type="text" value={values.lastName} onChange={handleLastNameInputChange}></input>
+          </div>
+        </div>
+
+
+        <button type="submit" id="submit" className='signup__form__button'>
+          Log in
+        
+        </button>
+		</form>
+    <div className='login-line'></div>
+
+      </div>
+      <GoogleLogin
           clientId="546358849656-baoghk362u02tas2sq9pkj6d50sog0ga.apps.googleusercontent.com"
           buttonText="Sign up with Google"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
           cookiePolicy={"single_host_origin"}
         />
-        <p className="or">Or</p>
-		<form onSubmit={handleSubmit} className='signup__form__form'>
-        <div className='signup__form__form__name'>
-		
-          <input type="text" placeholder="First name" value={values.firstName} onChange={handleFirstNameInputChange}></input>
-          <input type="text" placeholder="Last name"value={values.lastName} onChange={handleLastNameInputChange}></input>
-        </div>
-        <input type="text" placeholder="Email address" value={values.email} onChange={handleEmailInputChange}></input>
-        <input type="text" placeholder="Phone number" value={values.phone_number} onChange={handlePhoneInputChange}></input>
-        <input type="text" placeholder="Company name" value={values.company_name} onChange={handleCompanyNameInputChange}></input>
 
-        <button type="submit" id="submit" className='signup__form__button'>
-          Next
-          <img src={RightArrow} alt="right-arrow" />
-        </button>
-		</form>
-        <p className='privacy-policy'>
-          By continuing, you're agreeing to the HubSpot Customer Terms of
-          Service and Privacy Policy
-        </p>
-      </div>
-      <div className="incentive">
-        <div className="incentive__holder">
-          <img
-            className="incentive__image__holder__woman"
-            src={Lady}
-            alt="woman-folding-arms"
-          />
-          <img
-            className="incentive__image__holder__blob"
-            src={Blob}
-            alt="blob"
-          />
-        </div>
-        <p>ClubSpot CRM is 100% free, forever</p>
-      </div>
     </div>
   );
 };
