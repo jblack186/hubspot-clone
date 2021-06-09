@@ -50,7 +50,7 @@ const Header = () => {
             />
                         <div className='header-container__mid-nav__list-item-open' style={contacts ? {display: 'flex'} : {display: 'none'}}>
               <ul>
-              <Link className='router_link' to='/tickets'><li>Contacts</li></Link>
+              <Link className='router_link' to='/contacts'><li>Contacts</li></Link>
               </ul>
             </div>
 
