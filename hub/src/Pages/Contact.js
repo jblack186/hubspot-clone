@@ -15,8 +15,9 @@ const getUsers = () => {
     },
   }) 
     .then(res => {
-      console.log(res)
-      setUsers(JSON.parse(res.data))
+      console.log(res.data)
+      const userData = res.data.userContacts
+      setUsers(userData)
     })
     .catch(err => {
       console.log(err)
@@ -50,7 +51,16 @@ COMPANY NAME
       </div>
       <div className="contact-container__contacts-list__list-items">
         {users !== undefined ? users.map(item => {
-          return item.key
+          return <div className="contact-container__contacts-list__list-items__item">
+                  <ul className="contact-container__contacts-list__list-items__item__ul">
+                    <li>{item.firstname} {item.lastname}</li>
+                      <li>{item.email}</li>
+                      <li>{item.phonenumber}</li>
+                      <li>{item.companyname}</li>
+ 
+
+                  </ul>
+                </div>
         }) : <p>You have no contacts</p>}
       </div>
      </div>

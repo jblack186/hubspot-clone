@@ -9,7 +9,7 @@ import Header from "./components/Header";
 
 function App() {
   return (
-    <div className="signupContainer">
+    <div>
        <Header />
       <Route
         exact
@@ -19,30 +19,26 @@ function App() {
         }}
       />
             <Route
-        exact
-        path="/login"
+        exact path="/login"
         render={(props) => {
           return <Login {...props} />;
         }}
       />
 
             <Route
-        exact
-        path="/dashboard"
+        exact path="/dashboard"
         render={(props) => {
           return <Dashboard {...props} />;
         }}
       />
                   <Route
-        exact
-        path="/tickets"
+        exact path="/tickets"
         render={(props) => {
           return <Tickets {...props} />;
         }}
       />
                   <Route
-        exact
-        path="/contacts"
+        exact path="/contacts"
         render={(props) => {
           return <Contact {...props} />;
         }}

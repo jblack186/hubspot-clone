@@ -2,25 +2,49 @@
   padding-top: 75px;
   width: 92%;
   margin: 0 auto;
+  
 
   .contact-container__contacts-list {
-
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 
     .contact-container__contacts-list__labels {
+      width: 100%;
 
       .contact-container__contacts-list__labels__ul {
         display: flex;
         justify-content: center;
         padding: 0;
+        margin: 0;
 
         li {
           list-style: none;
-          width: 23%;
+          width: 25%;
           background: rgb(245, 248, 250);
           border: 1px solid rgb(223, 227, 235);
           color: rgb(51, 71, 91);
           font-size: .95rem;
           padding: 10px;
+        }
+      }
+    }
+
+    .contact-container__contacts-list__list-items__item {
+      border: 1px solid rgb(223, 227, 235);
+
+      .contact-container__contacts-list__list-items__item__ul {
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        
+
+        li {
+          width: 23%;
+          font-size: .95rem;
+          list-style: none;
+          padding: 10px;
+
         }
       }
     }
