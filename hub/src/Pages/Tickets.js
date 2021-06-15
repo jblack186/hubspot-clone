@@ -156,6 +156,8 @@ console.log('realTickets',realTickets)
 
   return (
     <div className="tickets-container">
+             <Header />
+
       <section className="tickets-container__tickets-header-top">
         <h2 className="tickets-container__tickets-header-top__heading">
           Tickets

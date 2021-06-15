@@ -9,6 +9,7 @@ import {Link} from 'react-router-dom';
 const Header = () => {
   const [service, setService] = useState(false);
   const [contacts, setContacts] = useState(false);
+  const [conversations, setConversations] = useState(false);
 
 
   const serviceDropdownOpen = (e) => {
@@ -33,6 +34,18 @@ const Header = () => {
     setContacts(false);
   }
 
+  const conversationsDropdownOpen = (e) => {
+    e.preventDefault();
+    setConversations(true);
+  }
+
+
+  const conversationsDropdownClosed = (e) => {
+    e.preventDefault();
+    setConversations(false);
+  }
+
+
   
   return (
     <div className="header-container">
@@ -55,14 +68,21 @@ const Header = () => {
             </div>
 
           </li>
-          <li className="header-container__mid-nav__list-item">
+          <li onClick={conversationsDropdownOpen} onMouseLeave={conversationsDropdownClosed}  className="header-container__mid-nav__list-item">
             Conversations{" "}
             <img
               className="header-container__mid-nav__list-item__arrow"
               src={DownArrow}
               alt="down-arrow"
             />
+                      <div className='header-container__mid-nav__list-item-open' style={conversations ? {display: 'flex'} : {display: 'none'}}>
+              <ul>
+              <Link className='router_link' to='/tickets'><li>Tickets</li></Link>
+              </ul>
+            </div>
+
           </li>
+
           <li onClick={serviceDropdownOpen} onMouseLeave={serviceDropdownClosed} className="header-container__mid-nav__list-item">
             Service
             <img

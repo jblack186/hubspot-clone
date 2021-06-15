@@ -24,7 +24,8 @@ useEffect(() => {
 
   return (
     <div>
-     
+            <Header />
+
 
     </div>
   )
