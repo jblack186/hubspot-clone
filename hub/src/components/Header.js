@@ -77,7 +77,7 @@ const Header = () => {
             />
                       <div className='header-container__mid-nav__list-item-open' style={conversations ? {display: 'flex'} : {display: 'none'}}>
               <ul>
-              <Link className='router_link' to='/tickets'><li>Tickets</li></Link>
+              <Link className='router_link' to='/conversations'><li>Inbox</li></Link>
               </ul>
             </div>
 

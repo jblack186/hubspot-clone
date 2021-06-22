@@ -6,6 +6,9 @@ import Tickets from "./Pages/Tickets";
 import Login from "./Pages/Login";
 import Contact from "./Pages/Contact";
 import Header from "./components/Header";
+import Conversations from "./Pages/Conversations";
+import Join from './components/Join';
+import Chat from './components/Chat';
 
 function App() {
   return (
@@ -42,7 +45,15 @@ function App() {
           return <Contact {...props} />;
         }}
       />
+                  <Route
+        exact path="/conversations"
+        render={(props) => {
+          return <Conversations {...props} />;
+        }}
+      />
 
+<Route path="/join" exact component={Join} />
+<Route path="/chat" exact component={Chat} />
 
 
     </div>
